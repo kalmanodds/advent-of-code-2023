@@ -26,7 +26,7 @@ func parseArgs() int {
 }
 
 func readFile(fileName string) []string {
-	inputBytes, err := os.ReadFile("input.txt")
+	inputBytes, err := os.ReadFile(fileName)
 	if err != nil {
 		panic(err)
 	}
@@ -65,7 +65,7 @@ func startsWithNumber(subString string, number *int, part int) bool {
 	if part == 2 {
 		return isNumeral(character, number) || isNumberString(subString, number)
 	}
-	return false
+	panic("first argument must be 1 or 2")
 }
 
 func isNumeral(character rune, number *int) bool {
