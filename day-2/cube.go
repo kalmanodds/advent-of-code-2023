@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// Usage: go run cube.go [1 || 2]
 func main() {
 	part := parseArgs()
 	lines := readFile("input.txt")
