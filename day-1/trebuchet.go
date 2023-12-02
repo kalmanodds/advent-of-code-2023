@@ -11,7 +11,7 @@ import (
 // Usage: go run trebuchet.go [1 || 2]
 func main() {
 	part := parseArgs()
-	lines := readFile("input.txt")
+	lines := readFile("_inputs/input.txt")
 	result := parseInput(lines, part)
 	fmt.Println(result)
 }
