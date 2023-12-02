@@ -8,7 +8,7 @@ import (
 	"unicode"
 )
 
-// Usage: go run day-1.go [1 || 2]
+// Usage: go run trebuchet.go [1 || 2]
 func main() {
 	part := parseArgs()
 	lines := readFile("input.txt")
@@ -17,9 +17,8 @@ func main() {
 }
 
 func parseArgs() int {
-	partArg := os.Args[1:][0]
+	partArg := os.Args[1]
 	part, err := strconv.Atoi(partArg)
-	fmt.Println(part)
 	if err != nil || part != 1 && part != 2 {
 		panic("first argument must be 1 or 2")
 	}
