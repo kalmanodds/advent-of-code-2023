@@ -9,14 +9,12 @@ defmodule Day4 do
 
   @spec reduce_line(String.t(), integer()) :: integer()
   def reduce_line(line, acc) do
-    body = line |> String.split(": ") |> Enum.at(1)
-    numbers = body |> String.split(" | ")
-    winning_count = numbers
-    |> Enum.at(0)
+    [_, line] = line |> String.split(": ")
+    [left_numbers, right_numbers] = line |> String.split(" | ")
+    winning_count = left_numbers
     |> String.split(~r{\s}, trim: true)
     |> Enum.reduce(0, fn (number, acc) ->
-      case numbers
-      |> Enum.at(1)
+      case right_numbers
       |> String.split(~r{\s}, trim: true)
       |> Enum.member?(number) do
         true -> acc + 1
