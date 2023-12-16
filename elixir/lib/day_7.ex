@@ -51,8 +51,7 @@ defmodule Day7 do
 
   def label_by_hand(hands, labelled_hands \\ [])
   def label_by_hand([], labelled_hands) do labelled_hands end
-  def label_by_hand(hands, labelled_hands) when hands !== [] do
-    [{hand, bid} | rest] = hands
+  def label_by_hand([{hand, bid} | rest], labelled_hands) do
     label = hand
     |> Enum.frequencies
     |> Enum.to_list
