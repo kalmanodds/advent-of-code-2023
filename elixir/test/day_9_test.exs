@@ -6,6 +6,6 @@ defmodule Day9Test do
   end
 
   test "Day 9 input should pass" do
-    assert Day9.main("inputs/day_9_input.txt") === 21797
+    assert Day9.main("inputs/day_9_input.txt") === 1708206096
   end
 end
