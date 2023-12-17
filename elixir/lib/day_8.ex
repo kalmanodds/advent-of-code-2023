@@ -8,7 +8,6 @@ defmodule Day8 do
     |> String.split("\r\n")
     |> Enum.map(&String.split(&1, [" = (", ", ", ")"], trim: true))
     |> traverse_network("AAA", directions, directions)
-
   end
 
   @spec traverse_network([String.t()], String.t(), [String.grapheme()], [String.grapheme()], integer()) :: integer()
