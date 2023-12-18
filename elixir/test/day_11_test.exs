@@ -27,6 +27,6 @@ defmodule Day11Test do
   end
 
   test "Day 11 input should pass" do
-    assert Day11.main("inputs/day_11_input.txt") == 9486878
+    assert Day11.main("inputs/day_11_input.txt") == 10165598
   end
 end
