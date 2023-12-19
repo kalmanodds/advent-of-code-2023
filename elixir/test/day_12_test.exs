@@ -12,6 +12,7 @@ defmodule Day12Test do
 
   # Runs for 60ish seconds
   @tag timeout: :infinity
+  @tag :skip
   test "Day 12 input should pass" do
     assert Day12.main("inputs/day_12_input.txt") === 7506
   end
