@@ -133,6 +133,7 @@ defmodule Day22 do
 
   def main(file_path) do
     {_, content} = File.read(file_path)
+    content
 
   end
 end
