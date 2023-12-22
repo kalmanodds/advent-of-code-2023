@@ -1,0 +1,15 @@
+{
+  "Advent of Code Elixir Day Module": {
+    "scope": "elixir",
+    "prefix": "day",
+    "body": [
+      "defmodule Day$1 do",
+      "  def main(file_path) do",
+      "    {_, content} = File.read(file_path)",
+      "    $0",
+      "  end",
+      "end"
+    ],
+    "description": "Module skeleton for Elixir Advent of Code modules"
+  }
+}
