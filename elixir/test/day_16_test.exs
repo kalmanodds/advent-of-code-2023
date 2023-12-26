@@ -16,6 +16,6 @@ defmodule Day16Test do
   end
 
   test "Day 16 input should pass" do
-    assert Day16.main("inputs/day_16_input.txt") === 0
+    assert Day16.main("inputs/day_16_input.txt") === 7067
   end
 end

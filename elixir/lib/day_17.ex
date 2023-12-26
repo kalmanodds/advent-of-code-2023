@@ -52,6 +52,79 @@ defmodule Day17 do
 
   def main(file_path) do
     {_, content} = File.read(file_path)
-    content
+    grid = content
+    |> String.split("\r\n")
+    |> Enum.map(&String.graphemes/1)
+
+    {count, _} = traverse_grid(grid)
+    count
   end
+
+  def traverse_grid(grid, position \\ {0, 0}, state \\ {:right, 0, 0, %{}}) do
+    if can_traverse?(grid, position, state) do
+      proceed_traversal(grid, position, state)
+    else
+      state
+    end
+  end
+
+  def can_traverse?(grid, position, state) do
+    {direction, direction_counter, current_count, grid_state} = state
+    {x, y} = position
+    tile = grid |> Enum.at(y) |> Enum.at(x)
+    state_index = {position, direction, direction_counter}
+    case Map.fetch(grid_state, state_index) do
+      {:ok, tile_best} -> tile_best > (current_count + tile)
+      :error -> true
+    end
+
+  end
+
+      # {direction, direction_counter, total_counter, grid_state} = state
+      # %{ {{x, y} direction, direction_counter} => total_counter } = grid_state
+
+  def proceed_traversal(grid, position, state) do
+    {x, y} = position
+    {direction, direction_counter, _current_count, _grid_state} = state
+    x_length = grid |> Enum.at(0) |> Enum.count()
+    y_length = grid |> Enum.count()
+    tile = grid |> Enum.at(y) |> Enum.at(x) |> String.to_integer()
+    IO.puts(tile)
+    is_finished? = x === (x_length - 1) && y === (y_length - 1)
+    if is_finished? do
+
+    end
+    state_index = {position, direction, direction_counter}
+    left_allowed = x > 0 && direction !== :right && {direction, direction_counter} !== {:left, 3}
+    right_allowed = x < (x_length - 1) && direction !== :left && {direction, direction_counter} !== {:right, 3}
+    up_allowed = y > 0 && direction !== :down && {direction, direction_counter} !== {:up, 3}
+    down_allowed = y < (y_length - 1) && direction !== :up && {direction, direction_counter} !== {:down, 3}
+    [left_allowed, right_allowed, up_allowed, down_allowed]
+    |> Enum.zip([:left, :right, :up, :down])
+    |> Enum.reduce(state, fn ({_, new_direction}, state) ->
+      {direction, direction_counter, current_count, grid_state} = state
+      new_position = update_position({x, y}, new_direction)
+      new_direction_counter =
+        update_direction_counter(direction, direction_counter, new_direction)
+      new_total = current_count + tile
+      new_grid_state = Map.put(grid_state, state_index, new_total)
+      new_state = {new_direction, new_direction_counter, new_total, new_grid_state}
+      traverse_grid(grid, new_position, new_state)
+    end)
+
+  end
+
+  def update_direction_counter(old_direction, direction_counter, new_direction) do
+    if old_direction === new_direction do direction_counter + 1 else 1 end
+  end
+
+  def update_position({x, y}, direction) do
+    case direction do
+      :up -> {x, y - 1}
+      :down -> {x, y + 1}
+      :left -> {x - 1, y}
+      :right -> {x + 1, y}
+    end
+  end
+
 end
