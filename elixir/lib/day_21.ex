@@ -4,7 +4,7 @@ defmodule Day21 do
     lines = content |> String.split("\r\n")
 
     dimensions = get_dimensions(lines)
-    maps = lines |> init_maps()
+    maps = init_maps(lines)
 
     output_map = iterate_map(maps, dimensions, steps)
     output_map |> Map.keys() |> Enum.count()
@@ -44,14 +44,10 @@ defmodule Day21 do
     |> Map.keys()
     |> Enum.reduce(%{}, fn (key, output_map) ->
       get_neighboring_keys(key)
-      |> Enum.filter(&!is_out_of_bounds(&1, dimensions))
+      |> Enum.filter(&!is_out_of_bounds?(&1, dimensions))
       |> Enum.filter(&!is_rock?(&1, rock_map))
       |> Enum.reduce(output_map, fn (key, output_map) ->
-        if is_out_of_bounds(key, dimensions) do
-          output_map
-        else
-          output_map |> Map.put(key, "O")
-        end
+        output_map |> Map.put(key, "O")
       end)
     end)
 
@@ -62,7 +58,7 @@ defmodule Day21 do
     [{x - 1, y}, {x + 1, y}, {x, y - 1}, {x, y + 1}]
   end
 
-  def is_out_of_bounds({x, y}, {x_dim, y_dim}) do
+  def is_out_of_bounds?({x, y}, {x_dim, y_dim}) do
     x < 0 || x > x_dim || y < 0 || y > y_dim
   end
 
